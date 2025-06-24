@@ -1,0 +1,8 @@
+.vscode
+obj
+bin
+nimbledeps
+
+# Added by cargo
+
+/target

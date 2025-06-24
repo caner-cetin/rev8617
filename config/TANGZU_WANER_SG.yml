@@ -1,0 +1,53 @@
+# System Audio -> BlackHole 2ch (Capture) -> CamillaDSP (Filter) -> External Headphones (Playback)
+
+# https://github.com/HEnquist/cpal-listdevices
+devices:
+  samplerate: 48000
+  chunksize: 1024
+  capture:
+    type: CoreAudio
+    channels: 2
+    device: "BlackHole 2ch"
+    format: FLOAT32LE
+  playback:
+    type: CoreAudio
+    channels: 2
+    device: "External Headphones"
+    format: FLOAT32LE
+
+filters:
+  safety_limiter:
+      type: Limiter
+      parameters:
+        soft_clip: true
+        clip_limit: -0.1
+  dither_output:
+      type: Dither
+      parameters:
+        type: Shibata48
+        bits: 16 
+  preamp_gain:
+      type: Gain
+      parameters:
+        # this is recommended to be -5.7 but idc, deafen me
+        # there is also a soft clipper at -0.1 so its fine, we are not frying the drivers
+        gain: 5.7
+        scale: dB
+  graphic_eq_31_band:
+    type: BiquadCombo
+    parameters:
+      type: GraphicEqualizer
+      gains: [
+        1.6, 1.7, 1.0, 0.6, 0.5, 0.5, -0.0, -0.8, -1.5, -1.9, 
+        -1.8, -1.4, -0.9, -0.3, 0.2, 0.6, 0.8, 0.5, -1.2, -2.0, 
+        -2.0, -1.4, 0.8, 1.4, 2.8, 4.5, 3.5, 3.9, 0.0, -4.0, 
+        -6.3
+      ]
+
+pipeline:
+  - type: Filter
+    names:
+      - preamp_gain
+      - graphic_eq_31_band
+      - safety_limiter
+      - dither_output

@@ -1,0 +1,32 @@
+<!-- runs camilladsp at startup -->
+<!-- just change the hardcoded paths -->
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.user.camilladsp</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/usr/local/bin/camilladsp</string>
+        <string>-a</string>
+        <string>127.0.0.1</string>
+        <string>-p</string>
+        <string>9090</string>
+        <string>/Users/canercetin/git/rev8617/config/TANGZU_WANER_SG.yml</string>
+    </array>
+
+    <key>RunAtLoad</key>
+    <true/>
+
+    <key>KeepAlive</key>
+    <true/>
+
+    <key>StandardOutPath</key>
+    <string>/Users/canercetin/camilladsp/camilladsp.log</string>
+
+    <key>StandardErrorPath</key>
+    <string>/Users/canercetin/camilladsp/camilladsp.err</string>
+</dict>
+</plist>
