@@ -15,9 +15,9 @@ impl Cli {
                 }));
             }
         };
-        if response.status() != StatusCode::OK {
+        if response.status() != StatusCode::SWITCHING_PROTOCOLS {
             return Err(anyhow!(
-                "dsp connection at {} returned non 200 error code ({})",
+                "dsp connection at {} returned non 101 error code ({})",
                 self.dsp_url.as_str(),
                 response.status()
             ));
